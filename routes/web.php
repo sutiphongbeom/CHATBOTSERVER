@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+Auth::routes(['verify' => true]);
 Route::get('/', [Controller::class, 'Home'])->name('home');
+Route::group(['middleware' => ['isstore','verified']], function () {
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('isstore');
+});
