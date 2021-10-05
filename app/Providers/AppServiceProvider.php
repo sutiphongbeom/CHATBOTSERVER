@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -24,12 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if(env('REDIRECT_HTTPS'))
-        {
-            \URL::forceScheme('https');
+        if(env(key: 'APP_ENV') !== 'local'){
+            URL::forceScheme(scheme:'https');
         }
-
-        Schema::defaultStringLength(191);
       
     }
 }
