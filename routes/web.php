@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes(['verify' => true]);
+Route::get('/public', [Controller::class, 'Home'])->name('home');
 Route::get('/', [Controller::class, 'Home'])->name('home');
-Route::group(['middleware' => ['isstore','verified']], function () {
+Route::group(['middleware' => ['isstore','verified']], function () 
+{
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('isstore');
 });
