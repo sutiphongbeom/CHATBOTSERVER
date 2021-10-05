@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Providers;
-use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use Nette\Schema\Schema;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,11 +22,14 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(UrlGenerator $url)
+    public function boot()
     {
-        if(env(key: 'APP_ENV') !== 'local'){
-            URL::forceScheme(schema:'https');
+        if(env('REDIRECT_HTTPS'))
+        {
+            \URL::forceScheme('https');
         }
+
+        Schema::defaultStringLength(191);
       
     }
 }
